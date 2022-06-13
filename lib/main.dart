@@ -34,7 +34,7 @@ class PeopleListViewPage extends StatefulWidget {
 }
 
 class PeopleListViewPageState extends State<PeopleListViewPage> {
-  int _numberOfPeople = 10;
+  int _numberOfPeople = 20;
   bool _online = true;
 
   @override

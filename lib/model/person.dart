@@ -1,5 +1,5 @@
 class Person {
-  int? id;
+  String? id;
   String? name;
   String? city;
   String? phoneNumber;
@@ -9,10 +9,11 @@ class Person {
 
   factory Person.fromJson(Map<String, dynamic> json) {
     return Person(
+      id: json["login"]["uuid"],
       name:
           "${json["name"]["title"]} ${json["name"]["first"]} ${json["name"]["last"]}",
       phoneNumber: json["phone"],
-      avatar: json["picture"]["large"],
+      avatar: json["picture"]["thumbnail"],
     );
   }
 }
