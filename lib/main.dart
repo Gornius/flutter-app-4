@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'widget/people_list_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,12 +16,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      darkTheme: ThemeData(
-          colorScheme: const ColorScheme.dark().copyWith(
-        secondary: Colors.red,
-      )),
+      darkTheme: ThemeData(colorScheme: const ColorScheme.dark().copyWith()),
       home: const PeopleListViewPage(
-        title: 'Testowy tytuł',
+        title: 'People',
       ),
     );
   }
@@ -34,6 +32,7 @@ class PeopleListViewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(title)),
+      body: const PeopleListView(),
     );
   }
 }
