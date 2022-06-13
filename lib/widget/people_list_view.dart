@@ -3,7 +3,10 @@ import 'package:pr32/service/random_user_service.dart';
 import '../model/person.dart';
 
 class PeopleListView extends StatefulWidget {
-  const PeopleListView({Key? key}) : super(key: key);
+  const PeopleListView({Key? key, required this.numberOfPeople})
+      : super(key: key);
+
+  final int numberOfPeople;
 
   @override
   State<StatefulWidget> createState() => PeopleListViewState();
@@ -12,10 +15,16 @@ class PeopleListView extends StatefulWidget {
 class PeopleListViewState extends State<PeopleListView> {
   late Future<List<Person>> _peopleList;
 
+  void loadUsers() {
+    setState(() {
+      _peopleList = RandomUserService.fetchUsersFromApi(widget.numberOfPeople);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    _peopleList = RandomUserService.fetchUsersFromApi(100);
+    loadUsers();
   }
 
   @override
@@ -24,13 +33,19 @@ class PeopleListViewState extends State<PeopleListView> {
       future: _peopleList,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return ListView.builder(
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) => Card(
-              child: ListTile(
-                title: (Text(snapshot.data![index].name!)),
-                leading: CircleAvatar(
-                  backgroundImage: NetworkImage(snapshot.data![index].avatar!),
+          return RefreshIndicator(
+            onRefresh: () async {
+              loadUsers();
+            },
+            child: ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) => Card(
+                child: ListTile(
+                  title: (Text(snapshot.data![index].name!)),
+                  leading: CircleAvatar(
+                    backgroundImage:
+                        NetworkImage(snapshot.data![index].avatar!),
+                  ),
                 ),
               ),
             ),
