@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_number_picker/flutter_number_picker.dart';
+import 'package:pr32/widget/people_list_view_offline.dart';
 import 'widget/people_list_view.dart';
 
 void main() async {
@@ -73,9 +74,11 @@ class PeopleListViewPageState extends State<PeopleListViewPage> {
           ),
         ],
       ),
-      body: PeopleListView(
-        numberOfPeople: _numberOfPeople,
-      ),
+      body: _online
+          ? PeopleListView(
+              numberOfPeople: _numberOfPeople,
+            )
+          : const PeopleListViewOffline(),
     );
   }
 }
