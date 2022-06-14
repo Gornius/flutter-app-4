@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_number_picker/flutter_number_picker.dart';
 import 'widget/people_list_view.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
 }
 
