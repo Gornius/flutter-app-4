@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:pr32/service/storage_user_service.dart';
+import 'package:http/http.dart' as http;
 
 class Person {
   String? id;
@@ -43,8 +45,21 @@ class Person {
     StorageUserService storageUserService = StorageUserService();
     List<Person> people = await storageUserService.loadPeopleList();
 
-    people.add(this);
-    await storageUserService.savePeopleList(people);
+    if (!people.any((element) => element.id == id)) {
+      // Download and save avatar as base64
+      String avatarUrl = avatar!;
+      http.Response response = await http.get(Uri.parse(avatarUrl));
+      String base64Avatar = base64Encode(response.bodyBytes);
+      avatar = base64Avatar;
+
+      people.add(this);
+
+      // Restore original avatar (url)
+      avatar = avatarUrl;
+
+      await storageUserService.savePeopleList(people);
+    }
+
     return people;
   }
 }
