@@ -57,14 +57,17 @@ class PeopleListViewOfflineState extends State<PeopleListViewOffline> {
                         },
                       ),
                       IconButton(
-                          icon: const Icon(Icons.edit),
-                          onPressed: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      EditPerson(snapshot.data![index]),
-                                ),
-                              )),
+                        icon: const Icon(Icons.edit),
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                EditPerson(snapshot.data![index]),
+                          ),
+                        ).then((value) async {
+                          loadUsers();
+                        }),
+                      ),
                     ],
                   ),
                 ),

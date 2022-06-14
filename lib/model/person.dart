@@ -71,4 +71,16 @@ class Person {
     people.remove(people.firstWhere((element) => element.id == id));
     await storageUserService.savePeopleList(people);
   }
+
+  editFromLocal() async {
+    StorageUserService storageUserService = StorageUserService();
+    List<Person> people = await storageUserService.loadPeopleList();
+
+    Person person = people.firstWhere((element) => element.id == id);
+    person.name = name!;
+    person.phoneNumber = phoneNumber!;
+    person.city = city!;
+
+    await storageUserService.savePeopleList(people);
+  }
 }
