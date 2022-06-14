@@ -8,14 +8,14 @@ const dataVersion = '1.0';
 const String fileName = "json_data$dataVersion.json";
 
 class StorageUserService {
-  Future<String> loadFromFile() async {
+  Future<String> _loadFromFile() async {
     final docDir = await getApplicationDocumentsDirectory();
     final docDirPath = docDir.path;
     final file = File("$docDirPath/$fileName");
     return file.readAsString();
   }
 
-  writeToFile(String contents) async {
+  _writeToFile(String contents) async {
     final docDir = await getApplicationDocumentsDirectory();
     final docDirPath = docDir.path;
     final file = File("$docDirPath/$fileName");
@@ -23,7 +23,7 @@ class StorageUserService {
   }
 
   Future<List<Person>> loadPeopleList() async {
-    final fileContents = await loadFromFile();
+    final fileContents = await _loadFromFile();
     List<Person> people = jsonDecode(fileContents);
 
     return people;
@@ -31,6 +31,6 @@ class StorageUserService {
 
   savePeopleList(List<Person> people) async {
     var peopleList = people.map((e) => e.toLocalJson()).toList();
-    writeToFile(peopleList.toString());
+    _writeToFile(peopleList.toString());
   }
 }
