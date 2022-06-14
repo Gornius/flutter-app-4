@@ -57,7 +57,7 @@ class PeopleListViewOfflineState extends State<PeopleListViewOffline> {
                         },
                       ),
                       IconButton(
-                          icon: Icon(Icons.edit),
+                          icon: const Icon(Icons.edit),
                           onPressed: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(

@@ -18,6 +18,7 @@ class Person {
           "${json["name"]["title"]} ${json["name"]["first"]} ${json["name"]["last"]}",
       phoneNumber: json["phone"],
       avatar: json["picture"]["thumbnail"],
+      city: json["location"]["city"],
     );
   }
 
