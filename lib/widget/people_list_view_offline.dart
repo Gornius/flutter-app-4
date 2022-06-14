@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pr32/service/storage_user_service.dart';
+import 'package:pr32/widget/edit_person.dart';
 import '../model/person.dart';
 
 class PeopleListViewOffline extends StatefulWidget {
@@ -45,12 +46,26 @@ class PeopleListViewOfflineState extends State<PeopleListViewOffline> {
                     backgroundImage:
                         NetworkImage(snapshot.data![index].avatar!),
                   ),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete_rounded),
-                    onPressed: () async {
-                      await snapshot.data![index].removeFromLocal();
-                      loadUsers();
-                    },
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.delete_rounded),
+                        onPressed: () async {
+                          await snapshot.data![index].removeFromLocal();
+                          loadUsers();
+                        },
+                      ),
+                      IconButton(
+                          icon: Icon(Icons.edit),
+                          onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      EditPerson(snapshot.data![index]),
+                                ),
+                              )),
+                    ],
                   ),
                 ),
               ),
