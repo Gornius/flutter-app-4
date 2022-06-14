@@ -51,7 +51,7 @@ class PeopleListViewPageState extends State<PeopleListViewPage> {
                       _numberOfPeople = value as int;
                     });
                   },
-                  initialValue: 20,
+                  initialValue: _numberOfPeople,
                   maxValue: 100,
                   minValue: 5,
                   step: 5,
