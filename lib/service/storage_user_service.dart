@@ -12,7 +12,11 @@ class StorageUserService {
     final docDir = await getApplicationDocumentsDirectory();
     final docDirPath = docDir.path;
     final file = File("$docDirPath/$fileName");
-    return file.readAsString();
+    if (await file.exists()) {
+      return file.readAsString();
+    } else {
+      return "[]";
+    }
   }
 
   _writeToFile(String contents) async {
@@ -32,5 +36,12 @@ class StorageUserService {
   savePeopleList(List<Person> people) async {
     var peopleList = people.map((e) => e.toLocalJson()).toList();
     _writeToFile(jsonEncode(peopleList));
+  }
+
+  deleteLocalFile() async {
+    final docDir = await getApplicationDocumentsDirectory();
+    final docDirPath = docDir.path;
+    final file = File("$docDirPath/$fileName");
+    file.delete();
   }
 }
