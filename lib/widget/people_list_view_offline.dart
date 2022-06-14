@@ -39,6 +39,8 @@ class PeopleListViewOfflineState extends State<PeopleListViewOffline> {
               itemBuilder: (context, index) => Card(
                 child: ListTile(
                   title: (Text(snapshot.data![index].name!)),
+                  subtitle:
+                      Text("Phone: ${snapshot.data![index].phoneNumber!}"),
                   leading: CircleAvatar(
                     backgroundImage:
                         NetworkImage(snapshot.data![index].avatar!),
