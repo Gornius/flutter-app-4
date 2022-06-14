@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pr32/service/random_user_service.dart';
 import 'package:pr32/service/storage_user_service.dart';
 import '../model/person.dart';
 
@@ -45,9 +44,10 @@ class PeopleListViewOfflineState extends State<PeopleListViewOffline> {
                         NetworkImage(snapshot.data![index].avatar!),
                   ),
                   trailing: IconButton(
-                    icon: const Icon(Icons.save),
+                    icon: const Icon(Icons.delete_rounded),
                     onPressed: () async {
-                      await snapshot.data![index].saveToLocal();
+                      await snapshot.data![index].removeFromLocal();
+                      loadUsers();
                     },
                   ),
                 ),

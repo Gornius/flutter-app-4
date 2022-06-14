@@ -62,4 +62,12 @@ class Person {
 
     return people;
   }
+
+  removeFromLocal() async {
+    StorageUserService storageUserService = StorageUserService();
+    List<Person> people = await storageUserService.loadPeopleList();
+
+    people.remove(people.firstWhere((element) => element.id == id));
+    await storageUserService.savePeopleList(people);
+  }
 }
