@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'package:pr32/service/storage_user_service.dart';
 
 class Person {
   String? id;
@@ -37,5 +37,14 @@ class Person {
       phoneNumber: json["phoneNumber"],
       avatar: json["avatar"],
     );
+  }
+
+  saveToLocal() async {
+    StorageUserService storageUserService = StorageUserService();
+    List<Person> people = await storageUserService.loadPeopleList();
+
+    people.add(this);
+    await storageUserService.savePeopleList(people);
+    return people;
   }
 }

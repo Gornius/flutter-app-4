@@ -23,14 +23,14 @@ class StorageUserService {
   }
 
   Future<List<Person>> loadPeopleList() async {
-    final fileContents = await _loadFromFile();
-    List<Person> people = jsonDecode(fileContents);
+    final String fileContents = await _loadFromFile();
+    List<dynamic> people = jsonDecode(fileContents);
 
-    return people;
+    return people.map((e) => Person.fromLocalJson(e)).toList();
   }
 
   savePeopleList(List<Person> people) async {
     var peopleList = people.map((e) => e.toLocalJson()).toList();
-    _writeToFile(peopleList.toString());
+    _writeToFile(jsonEncode(peopleList));
   }
 }

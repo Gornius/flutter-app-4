@@ -46,6 +46,12 @@ class PeopleListViewState extends State<PeopleListView> {
                     backgroundImage:
                         NetworkImage(snapshot.data![index].avatar!),
                   ),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.save),
+                    onPressed: () async {
+                      await snapshot.data![index].saveToLocal();
+                    },
+                  ),
                 ),
               ),
             ),
