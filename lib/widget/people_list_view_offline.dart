@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:pr32/service/storage_user_service.dart';
 import 'package:pr32/widget/edit_person.dart';
@@ -35,40 +37,46 @@ class PeopleListViewOfflineState extends State<PeopleListViewOffline> {
             onRefresh: () async {
               loadUsers();
             },
-            child: ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) => Card(
-                child: ListTile(
-                  title: (Text(snapshot.data![index].name!)),
-                  subtitle:
-                      Text("Phone: ${snapshot.data![index].phoneNumber!}"),
-                  leading: CircleAvatar(
-                    backgroundImage:
-                        NetworkImage(snapshot.data![index].avatar!),
-                  ),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.delete_rounded),
-                        onPressed: () async {
-                          await snapshot.data![index].removeFromLocal();
-                          loadUsers();
-                        },
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.edit),
-                        onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                EditPerson(snapshot.data![index]),
-                          ),
-                        ).then((value) async {
-                          loadUsers();
-                        }),
-                      ),
-                    ],
+            child: ScrollConfiguration(
+              behavior: ScrollConfiguration.of(context).copyWith(dragDevices: {
+                PointerDeviceKind.touch,
+                PointerDeviceKind.mouse,
+              }),
+              child: ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) => Card(
+                  child: ListTile(
+                    title: (Text(snapshot.data![index].name!)),
+                    subtitle:
+                        Text("Phone: ${snapshot.data![index].phoneNumber!}"),
+                    leading: CircleAvatar(
+                      backgroundImage:
+                          NetworkImage(snapshot.data![index].avatar!),
+                    ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.delete_rounded),
+                          onPressed: () async {
+                            await snapshot.data![index].removeFromLocal();
+                            loadUsers();
+                          },
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.edit),
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  EditPerson(snapshot.data![index]),
+                            ),
+                          ).then((value) async {
+                            loadUsers();
+                          }),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

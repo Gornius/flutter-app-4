@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pr32/service/random_user_service.dart';
 import '../model/person.dart';
@@ -37,22 +38,28 @@ class PeopleListViewState extends State<PeopleListView> {
             onRefresh: () async {
               loadUsers();
             },
-            child: ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) => Card(
-                child: ListTile(
-                  title: (Text(snapshot.data![index].name!)),
-                  subtitle:
-                      Text("Phone: ${snapshot.data![index].phoneNumber!}"),
-                  leading: CircleAvatar(
-                    backgroundImage:
-                        NetworkImage(snapshot.data![index].avatar!),
-                  ),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.save),
-                    onPressed: () async {
-                      await snapshot.data![index].saveToLocal();
-                    },
+            child: ScrollConfiguration(
+              behavior: ScrollConfiguration.of(context).copyWith(dragDevices: {
+                PointerDeviceKind.touch,
+                PointerDeviceKind.mouse,
+              }),
+              child: ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) => Card(
+                  child: ListTile(
+                    title: (Text(snapshot.data![index].name!)),
+                    subtitle:
+                        Text("Phone: ${snapshot.data![index].phoneNumber!}"),
+                    leading: CircleAvatar(
+                      backgroundImage:
+                          NetworkImage(snapshot.data![index].avatar!),
+                    ),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.save),
+                      onPressed: () async {
+                        await snapshot.data![index].saveToLocal();
+                      },
+                    ),
                   ),
                 ),
               ),
