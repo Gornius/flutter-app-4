@@ -89,8 +89,8 @@ class EditPersonState extends State<EditPerson> {
                     _person.phoneNumber = _phoneFieldController.text;
                     _person.city = _cityFieldController.text;
                     await _person.editFromLocal();
+                    navigator.pop();
                   }
-                  navigator.pop();
                 },
                 child: const Text("Save"),
               ),
