@@ -31,6 +31,7 @@ dependencies:
     sdk: flutter
   http:
   flutter_number_picker:
+  flutter_staggered_grid_view:
   path_provider:
   path:
 

@@ -42,7 +42,13 @@ class PeopleListViewOfflineState extends State<PeopleListViewOffline> {
                 PointerDeviceKind.touch,
                 PointerDeviceKind.mouse,
               }),
-              child: ListView.builder(
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount:
+                      (MediaQuery.of(context).size.width / 666 + 1).toInt(),
+                  mainAxisExtent: 75,
+                ),
+                shrinkWrap: true,
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) => Card(
                   child: ListTile(
